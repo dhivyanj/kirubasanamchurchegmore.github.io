@@ -1,78 +1,53 @@
-h1.en {
-    font-family: 'Lexend';
-    font-size: 2em
-}
-
-h1.ta {
-    font-family: 'Anek Tamil';
-    font-size: 2em
-}
-
-h2.locta {
-    font-family: 'Anek Tamil';
-    font-size: 1em;
-}
-
-h2.locen {
-    font-family: 'Lexend';
-    font-size: 1em;
-}
-
-ta {
-    font-family: 'Anek Tamil';
-    font-size: 1em
+/* General reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Lexend';
-    font-size: 1em;
-    margin: 2em;
-    background-color: #ffd734ff;
-    text-align: center;
+  font-family: "Lexend", "Anek Tamil", sans-serif;
+  background-color: #009900;
+  color: white;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-div.title {
-    font-size: 1.25em;
-    color: #b6006e;
-    text-shadow: 0px 0px 10px rgb(255, 255, 255);
+.container {
+  max-width: 700px;
+  padding: 20px;
 }
 
-div.links {
-    font-size: 1.1em;
-    padding: 0.75em;
-    color: #b6006e
+.title h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  line-height: 1.4;
 }
 
-a:visited, a {
-    color: #b6006e;
-    text-decoration: none;
-    font-weight: bold;  
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-h1 {
-    text-align: center;
+.link {
+  display: inline-block;
+  padding: 12px 20px;
+  border: 2px solid white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+  transition: all 0.3s ease;
 }
 
-.ta {
-    font-family: 'Anek Tamil';
-}
-
-a.link {
-    font-size: 2em;
-    padding: 10px;
-    border-radius: 15px;
-    border: 1px rgba(255, 255, 255, 0.500)
-}
-
-a.link:hover {
-    text-decoration: underline;
-}
-
-img {
-    border: 0.25em white solid;
-    border-radius: 10px;
-}
-
-h2 {
-    color: white;
+.link:hover {
+  background-color: white;
+  color: #009900;
+  transform: scale(1.05);
 }
