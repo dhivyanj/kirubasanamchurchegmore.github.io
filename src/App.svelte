@@ -5,10 +5,8 @@
   import JoinMeetingModal from './lib/components/JoinMeetingModal.svelte';
 
   import HomeView from './lib/views/HomeView.svelte';
-  import AboutView from './lib/views/AboutView.svelte';
-  import BranchesView from './lib/views/BranchesView.svelte';
   import ConventionView from './lib/views/ConventionView.svelte';
-  import MemberView from './lib/views/MemberView.svelte';
+  import BranchesView from './lib/views/BranchesView.svelte';
   import ContactView from './lib/views/ContactView.svelte';
 
   let activeTab = 'home';
@@ -16,7 +14,7 @@
 
   function parseHash() {
     const hash = window.location.hash.replace('#/', '').replace('#', '');
-    if (['home', 'about', 'branches', 'convention', 'member', 'contact'].includes(hash)) {
+    if (['home', 'convention', 'branches', 'contact'].includes(hash)) {
       activeTab = hash;
     } else {
       activeTab = 'home';
@@ -39,37 +37,29 @@
 </script>
 
 <div class="app-shell">
-  <!-- Sticky Glass Navbar -->
   <Navbar 
     {activeTab} 
     onSelectTab={handleSelectTab} 
     onOpenMeeting={() => meetingModalOpen = true} 
   />
 
-  <!-- Main View Container -->
   <main class="main-content">
     {#if activeTab === 'home'}
-      <HomeView onSelectTab={handleSelectTab} onOpenMeeting={() => meetingModalOpen = true} />
-    {:else if activeTab === 'about'}
-      <AboutView onSelectTab={handleSelectTab} />
-    {:else if activeTab === 'branches'}
-      <BranchesView />
+      <HomeView />
     {:else if activeTab === 'convention'}
       <ConventionView onSelectTab={handleSelectTab} />
-    {:else if activeTab === 'member'}
-      <MemberView />
+    {:else if activeTab === 'branches'}
+      <BranchesView />
     {:else if activeTab === 'contact'}
-      <ContactView onOpenMeeting={() => meetingModalOpen = true} />
+      <ContactView />
     {/if}
   </main>
 
-  <!-- Google Meet Dialog Modal -->
   <JoinMeetingModal 
     isOpen={meetingModalOpen} 
     onClose={() => meetingModalOpen = false} 
   />
 
-  <!-- Footer -->
   <Footer 
     onSelectTab={handleSelectTab} 
     onOpenMeeting={() => meetingModalOpen = true} 

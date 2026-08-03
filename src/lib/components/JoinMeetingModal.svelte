@@ -18,16 +18,17 @@
 {#if isOpen}
   <div 
     class="modal-backdrop fade-in" 
-    on:click={onClose}>
-    <div class="modal-card glass-card">
+    role="button" 
+    tabindex="0" 
+    on:click={onClose} 
+    on:keydown={(e) => e.key === 'Escape' && onClose()}>
+    <div class="modal-card glass-card" role="dialog" aria-modal="true">
       <button class="close-btn" on:click={onClose}>✕</button>
       
       <div class="modal-header">
         <span class="icon-camera">🎥</span>
         <h2>{t.meetingModal.title}</h2>
       </div>
-
-      <p class="modal-desc">{t.meetingModal.description}</p>
 
       <div class="url-box">
         <code>{meetUrl}</code>
@@ -80,20 +81,14 @@
   }
 
   .icon-camera {
-    font-size: 3rem;
+    font-size: 2.5rem;
     display: block;
     margin-bottom: 12px;
   }
 
   .modal-header h2 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: #f8fafc;
-    margin-bottom: 12px;
-  }
-
-  .modal-desc {
-    color: #cbd5e1;
-    font-size: 0.95rem;
     margin-bottom: 20px;
   }
 
@@ -110,7 +105,7 @@
 
   .url-box code {
     color: #60a5fa;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
   }
 
   .btn-copy {
@@ -119,7 +114,6 @@
     font-size: 0.8rem;
     padding: 4px 10px;
     border-radius: 4px;
-
   }
 
   .modal-actions {

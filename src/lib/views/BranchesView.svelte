@@ -1,96 +1,119 @@
 <script lang="ts">
-  import { currentLang, translations, type BranchInfo } from '../i18n';
+  import { currentLang, translations } from '../i18n';
 
   $: t = translations[$currentLang];
-  let selectedBranchId: 'egmore' | 'manappakkam' = 'egmore';
-
-  $: selectedBranch = selectedBranchId === 'egmore' ? t.branches.egmore : t.branches.manappakkam;
 </script>
 
 <div class="branches-view container fade-in">
-  <div class="header-card glass-card">
-    <h1>{t.branches.title}</h1>
-    <p>{t.branches.subtitle}</p>
+  <h1>{t.branches.title}</h1>
 
-    <!-- Branch Tab Switcher -->
-    <div class="branch-tabs">
-      <button 
-        class="tab-btn {selectedBranchId === 'egmore' ? 'active' : ''}" 
-        on:click={() => selectedBranchId = 'egmore'}>
-        🏛️ {t.branches.egmore.name}
-      </button>
-      <button 
-        class="tab-btn {selectedBranchId === 'manappakkam' ? 'active' : ''}" 
-        on:click={() => selectedBranchId = 'manappakkam'}>
-        🏢 {t.branches.manappakkam.name}
-      </button>
-    </div>
-  </div>
+  <!-- Egmore Branch -->
+  <fieldset class="glass-card branch-fieldset" id="egmore">
+    <legend class="fieldset-legend">{t.branches.egmore.name}</legend>
+    <div class="branch-grid">
+      <div class="info-col">
+        <h3>{t.branches.addressLabel}</h3>
+        <p class="address">{t.branches.egmore.address}</p>
 
-  <!-- Selected Branch Card Details -->
-  <div class="branch-content-grid">
-    <!-- Transport & Info Side -->
-    <div class="glass-card branch-info-card">
-      <h2>{selectedBranch.name}</h2>
-      
-      <div class="info-section">
-        <h3>📍 {t.branches.addressLabel}</h3>
-        <p class="address-text">{selectedBranch.address}</p>
-      </div>
-
-      <div class="info-section">
-        <h3>🚌 {t.branches.mtcLabel}</h3>
-        <div class="bus-chips">
-          {#each selectedBranch.mtc as bus}
-            <span class="badge badge-bus">{bus}</span>
+        <h3>{t.branches.transitLabel}</h3>
+        
+        <h4>{t.branches.mtcLabel}</h4>
+        <div class="bus-list">
+          {#each t.branches.egmore.mtc as bus}
+            <span class="bus-item">{bus}</span>
           {/each}
         </div>
-      </div>
 
-      <div class="info-section">
-        <h3>🚆 {t.branches.suburbanLabel}</h3>
-        <p class="suburban-text">{selectedBranch.suburban}</p>
-      </div>
+        <h4>{t.branches.suburbanLabel}</h4>
+        <p>{t.branches.egmore.suburban}</p>
 
-      <div class="info-section">
-        <h3>🚇 {t.branches.metroLabel}</h3>
+        <h4>{t.branches.metroLabel}</h4>
         <div class="metro-list">
-          {#each selectedBranch.metro as metro}
-            <div class="metro-badge" style="border-left-color: {metro.color}">
-              <span class="metro-name" style="color: {metro.color}">{metro.line}</span>
+          {#each t.branches.egmore.metro as metro}
+            <div class="metro-item" style="color: {metro.color}">
+              {metro.line}
             </div>
           {/each}
         </div>
-      </div>
 
-      <div class="action-box">
+        <br>
         <a 
-          href={selectedBranch.directionsUrl} 
+          href={t.branches.egmore.directionsUrl} 
           target="_blank" 
           rel="noopener noreferrer" 
-          class="btn-accent btn-directions">
-          🗺️ {t.branches.getDirections} ➔
+          class="btn-primary link-directions">
+          {t.branches.egmore.directionsLabel}
         </a>
       </div>
-    </div>
 
-    <!-- Map Side -->
-    <div class="glass-card map-card">
-      <h3>🗺️ Google Maps Location</h3>
-      <div class="iframe-wrapper">
+      <div class="map-col">
         <iframe 
-          title="Google Maps - {selectedBranch.name}"
-          src={selectedBranch.mapEmbedUrl} 
+          title="Egmore Map"
+          src={t.branches.egmore.mapEmbedUrl} 
           width="100%" 
-          height="100%" 
-          style="border:0;" 
-          allowfullscreen="" 
+          height="280px" 
+          style="border:0; border-radius: 8px;" 
+          allowfullscreen={true} 
           loading="lazy" 
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
       </div>
     </div>
-  </div>
+  </fieldset>
+
+  <!-- Manappakkam Branch -->
+  <fieldset class="glass-card branch-fieldset" id="manappakkam">
+    <legend class="fieldset-legend">{t.branches.manappakkam.name}</legend>
+    <div class="branch-grid">
+      <div class="info-col">
+        <h3>{t.branches.addressLabel}</h3>
+        <p class="address">{t.branches.manappakkam.address}</p>
+
+        <h3>{t.branches.transitLabel}</h3>
+        
+        <h4>{t.branches.mtcLabel}</h4>
+        <div class="bus-list">
+          {#each t.branches.manappakkam.mtc as bus}
+            <span class="bus-item">{bus}</span>
+          {/each}
+        </div>
+
+        <h4>{t.branches.suburbanLabel}</h4>
+        <p>{t.branches.manappakkam.suburban}</p>
+
+        <h4>{t.branches.metroLabel}</h4>
+        <div class="metro-list">
+          {#each t.branches.manappakkam.metro as metro}
+            <div class="metro-item" style="color: {metro.color}">
+              <i>{metro.line}</i>
+            </div>
+          {/each}
+        </div>
+
+        <br>
+        <a 
+          href={t.branches.manappakkam.directionsUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="btn-primary link-directions">
+          {t.branches.manappakkam.directionsLabel}
+        </a>
+      </div>
+
+      <div class="map-col">
+        <iframe 
+          title="Manappakkam Map"
+          src={t.branches.manappakkam.mapEmbedUrl} 
+          width="100%" 
+          height="280px" 
+          style="border:0; border-radius: 8px;" 
+          allowfullscreen={true} 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </fieldset>
 </div>
 
 <style>
@@ -101,125 +124,82 @@
     padding-top: 24px;
   }
 
-  .header-card {
-    padding: 32px;
-    text-align: center;
-  }
-
-  .header-card h1 {
+  .branches-view h1 {
     font-size: 2rem;
     color: #ffffff;
-    margin-bottom: 8px;
   }
 
-  .header-card p {
-    color: #94a3b8;
-    margin-bottom: 24px;
+  .branch-fieldset {
+    padding: 24px 28px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
   }
 
-  .branch-tabs {
-    display: inline-flex;
-    background: rgba(30, 41, 59, 0.8);
-    padding: 6px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    gap: 8px;
-  }
-
-  .tab-btn {
-    padding: 10px 24px;
-    border-radius: 999px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #cbd5e1;
-    transition: all 0.2s ease;
-  }
-
-  .tab-btn.active {
-    background: #2563eb;
-    color: #ffffff;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
-  }
-
-  .branch-content-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 28px;
-  }
-
-  .branch-info-card {
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .branch-info-card h2 {
-    font-size: 1.6rem;
-    color: #f8fafc;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 12px;
-  }
-
-  .info-section h3 {
-    font-size: 1.05rem;
+  .fieldset-legend {
+    padding: 0 12px;
+    font-size: 1.3rem;
+    font-weight: 700;
     color: #f59e0b;
-    margin-bottom: 8px;
   }
 
-  .address-text, .suburban-text {
-    font-size: 1rem;
+  .branch-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 32px;
+  }
+
+  .info-col h3 {
+    font-size: 1.1rem;
+    color: #f8fafc;
+    margin-top: 12px;
+    margin-bottom: 4px;
+  }
+
+  .info-col h4 {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    margin-top: 8px;
+    margin-bottom: 2px;
+  }
+
+  .address {
     color: #e2e8f0;
+    margin-bottom: 12px;
   }
 
-  .bus-chips {
+  .bus-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
+    margin-bottom: 8px;
   }
 
-  .metro-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  .bus-item {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    color: #60a5fa;
   }
 
-  .metro-badge {
-    padding: 8px 14px;
-    background: rgba(30, 41, 59, 0.6);
-    border-radius: 6px;
-    border-left: 4px solid #2563eb;
-    font-size: 0.95rem;
+  .metro-item {
     font-weight: 600;
+    margin-bottom: 4px;
   }
 
-  .btn-directions {
-    width: 100%;
+  .link-directions {
+    display: inline-block;
     margin-top: 12px;
   }
 
-  .map-card {
-    padding: 24px;
+  .map-col {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    align-items: center;
   }
 
-  .map-card h3 {
-    color: #f8fafc;
-    font-size: 1.1rem;
-  }
-
-  .iframe-wrapper {
-    width: 100%;
-    height: 400px;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  @media (max-width: 850px) {
-    .branch-content-grid {
+  @media (max-width: 800px) {
+    .branch-grid {
       grid-template-columns: 1fr;
     }
   }
